@@ -20,6 +20,13 @@ public class MainApp {
 		String input;
 		int amount;
 		boolean loading = false;
+		String playerPath = "E:/Uni/info 2/DungeonGrind/src/PlayerSave.txt";
+		String userPath = "E:/Uni/info 2/DungeonGrind/src/UserSave.txt";
+		String enemyPath = "E:/Uni/info 2/DungeonGrind/src/EnemySave.txt";
+		String enemyStatusPath = "E:/Uni/info 2/DungeonGrind/src/EnemyAliveSave.txt";
+		String punshPath = "E:/Uni/info 2/DungeonGrind/src/Punsh.wav";
+		String magicPath = "E:/Uni/info 2/DungeonGrind/src/Magic.wav";
+		String pickPocketPath = "E:/Uni/info 2/DungeonGrind/src/Pickpocket.wav";
 		
 		//Game Statistiken
 		int missingXp = 0;
@@ -84,10 +91,10 @@ public class MainApp {
 		}
 		//Spielstand Laden
 		else if (input.equals("2")){
-			player.readPlayer("E:/Uni/info 2/DungeonGrind/src/PlayerSave.txt");
-			player.readUser("E:/Uni/info 2/DungeonGrind/src/UserSave.txt");
-			enemy.readEnemy("E:/Uni/info 2/DungeonGrind/src/EnemySave.txt");
-			enemy.readEnemyStatus("E:/Uni/info 2/DungeonGrind/src/EnemyAliveSave.txt");
+			player.readPlayer(playerPath);
+			player.readUser(userPath);
+			enemy.readEnemy(enemyPath);
+			enemy.readEnemyStatus(enemyStatusPath);
 			System.out.println("Spielstand geladen!\n");
 			loading = true;
 			break;
@@ -207,8 +214,7 @@ public class MainApp {
 				if(input.equals("1")){
 			   			 		 		
 					//Audio Ausgabe	Schlag			
-					String punshFile = "E:/Uni/info 2/DungeonGrind/src/Punsh.wav";
-			    	InputStream stream = new FileInputStream(punshFile);
+			    	InputStream stream = new FileInputStream(punshPath);
 				    AudioStream audioStream = new AudioStream(stream);
 				    AudioPlayer.player.start(audioStream);
 				    
@@ -261,8 +267,7 @@ public class MainApp {
 					if(player.getNumPotions() > 0) {
 						
 						//Audio Ausgabe	Heilung				
-						String magicFile = "E:/Uni/info 2/DungeonGrind/src/Magic.wav";
-				    	InputStream stream = new FileInputStream(magicFile);
+				    	InputStream stream = new FileInputStream(magicPath);
 					    AudioStream audioStream = new AudioStream(stream);
 					    AudioPlayer.player.start(audioStream);
 						  
@@ -283,8 +288,7 @@ public class MainApp {
 					
 			//Audio Ausgabe	Diebstahl
 					
-					String pickPocketFile = "E:/Uni/info 2/DungeonGrind/src/PickPocket.wav";
-			    	InputStream stream = new FileInputStream(pickPocketFile);
+			    	InputStream stream = new FileInputStream(pickPocketPath);
 				    AudioStream audioStream = new AudioStream(stream);    
 				    AudioPlayer.player.start(audioStream);
 				    
@@ -324,17 +328,17 @@ public class MainApp {
 				}
 				//Speichern
 				else if(input.equals("5")){
-					player.savePlayer("E:/Uni/info 2/DungeonGrind/src/PlayerSave.txt");
-					player.saveUser("E:/Uni/info 2/DungeonGrind/src/UserSave.txt");
-					enemy.saveEnemy("E:/Uni/info 2/DungeonGrind/src/EnemySave.txt");
-					enemy.saveEnemyStatus("E:/Uni/info 2/DungeonGrind/src/EnemyAliveSave.txt");
+					player.savePlayer(playerPath);
+					player.saveUser(userPath);
+					enemy.saveEnemy(enemyPath);
+					enemy.saveEnemyStatus(enemyStatusPath);
 				}
 				//Laden
 				else if (input.equals("6")){
-					player.readPlayer("E:/Uni/info 2/DungeonGrind/src/PlayerSave.txt");
-					player.readUser("E:/Uni/info 2/DungeonGrind/src/UserSave.txt");
-					enemy.readEnemy("E:/Uni/info 2/DungeonGrind/src/EnemySave.txt");
-					enemy.readEnemyStatus("E:/Uni/info 2/DungeonGrind/src/EnemyAliveSave.txt");
+					player.readPlayer(playerPath);
+					player.readUser(userPath);
+					enemy.readEnemy(enemyPath);
+					enemy.readEnemyStatus(enemyStatusPath);
 					System.out.println("Spielstand geladen!\n");
 					continue GAME;
 				}
@@ -418,18 +422,18 @@ public class MainApp {
 				break;
 			}
 			else if(input.equals("3")) {
-				player.savePlayer("E:/Uni/info 2/DungeonGrind/src/PlayerSave.txt");
-				player.saveUser("E:/Uni/info 2/DungeonGrind/src/UserSave.txt");
-				enemy.saveEnemy("E:/Uni/info 2/DungeonGrind/src/EnemySave.txt");
-				enemy.saveEnemyStatus("E:/Uni/info 2/DungeonGrind/src/EnemyAliveSave.txt");
+				player.savePlayer(playerPath);
+				player.saveUser(userPath);
+				enemy.saveEnemy(enemyPath);
+				enemy.saveEnemyStatus(enemyStatusPath);
 				System.out.println("Spielstand gespeichert!\n");
 				System.out.println("\t\n# Ein " + enemy.getEnemyName() + " taucht auf! #\n");
 			}
 			else if(input.equals("4")) {
-				player.readPlayer("E:/Uni/info 2/DungeonGrind/src/PlayerSave.txt");
-				player.readUser("E:/Uni/info 2/DungeonGrind/src/UserSave.txt");
-				enemy.readEnemy("E:/Uni/info 2/DungeonGrind/src/EnemySave.txt");
-				enemy.readEnemyStatus("E:/Uni/info 2/DungeonGrind/src/EnemyAliveSave.txt");
+				player.readPlayer(playerPath);
+				player.readUser(userPath);
+				enemy.readEnemy(enemyPath);
+				enemy.readEnemyStatus(enemyStatusPath);
 				System.out.println("Spielstand geladen!\n");
 				loading = true;
 			}
