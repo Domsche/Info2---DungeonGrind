@@ -427,6 +427,7 @@ public class MainApp {
 				enemy.saveEnemy(enemyPath);
 				enemy.saveEnemyStatus(enemyStatusPath);
 				System.out.println("Spielstand gespeichert!\n");
+				enemy.spawnEnemy(1);
 				System.out.println("\t\n# Ein " + enemy.getEnemyName() + " taucht auf! #\n");
 			}
 			else if(input.equals("4")) {
