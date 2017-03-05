@@ -14,6 +14,7 @@ public class MainApp {
 		boolean run = true;
 		boolean debugMode = true;
 		boolean menu = true;
+		boolean combatMenu = true;
 		Player player = new Player();
 		Enemy enemy = new Enemy();
 		String input;
@@ -48,19 +49,21 @@ public class MainApp {
 			input = in.nextLine();
 			player.setName(input);
 			System.out.println("--------------------------------------------------");
-			System.out.println("\n\tW‰hle deine Klasse!\n");
+			System.out.println("\n\tW√§hle deine Klasse!\n");
 			System.out.println("\n\t1. Krieger");
-			System.out.println("\t Krieger sind besonders z‰h und stark im Kampf!");
-			System.out.println("\t Dein Schaden und deine R¸stung erhˆhen sich um 5!");
+			System.out.println("\t Krieger sind besonders z√§h und stark im Kampf!");
+			System.out.println("\t Dein Schaden und deine R√ºstung erh√∂hen sich um 5!");
 			System.out.println("\n\t2. Alchimist");
-			System.out.println("\t Alchimisten sind experten im Umgang mit Tr‰nken jeder Art!");
-			System.out.println("\t Du startest mit 2 extra Tr‰nken und deine Tr‰nke heilen mehr!");
+			System.out.println("\t Alchimisten sind experten im Umgang mit Tr√§nken jeder Art!");
+			System.out.println("\t Du startest mit 2 extra Tr√§nken und deine Tr√§nke heilen mehr!");
 			System.out.println("\n\t3. Dieb");
-			System.out.println("\t Diebe sind heimt¸ckisch und bewandert im Taschendiebstahl!");
+			System.out.println("\t Diebe sind heimt√ºckisch und bewandert im Taschendiebstahl!");
 			System.out.println("\t Du kannst kritische Treffer landen und Gegner beklauen!");
 			System.out.println("--------------------------------------------------");
 			input = in.nextLine();
 			enemy.spawnEnemy(1);
+			System.out.println("\t\n# Ein " + enemy.getEnemyName() + " taucht auf! #\n");
+			
 			
 			//Klassenauswahl
 			if(input.equals("1")){
@@ -94,18 +97,18 @@ public class MainApp {
 		else if (input.equals("d")){
 			while(debugMode){
 				System.out.println("# Willkommen im DebugMode! # ");	
-				System.out.println("# Welche Variablen wollen sie ‰ndern? #\n");
+				System.out.println("# Welche Variablen wollen sie √§ndern? #\n");
 				System.out.println("\t# Spieler-Variablen#");
 				System.out.println("\t1. Spieler-HP: "+ player.getPlayerHealth() );
 				System.out.println("\t2. Spieler-AttackDamage: "+ player.getAttackDamage() );
 				System.out.println("\t3. Spieler-LevelupPoints: "+ player.getPlayerHealth()  );
 				System.out.println("\t4. Spieler-HeilRate: "+ player.getPotionHeal()  );
-				System.out.println("\t5. Spieler-AnzahlHeiltr‰nke: "+ player.getNumPotions()  );
+				System.out.println("\t5. Spieler-AnzahlHeiltr√§nke: "+ player.getNumPotions()  );
 				System.out.println("\n\t# Monster-Variablen#");
 				System.out.println("\t6. Monster-MaximaleHP: "+ enemy.getEnemyMaxHealth()  );	
 				System.out.println("\t7. Monster-AttackDamage: "+ enemy.getEnemyAttackDamage()  );	
 				System.out.println("\t8. Monster-Heiltrank DropChance: "+ potionChance + " % ");
-				System.out.println("\t9. Monster-Waffe/R¸stung DropChance: "+ itemChance + " % ");	
+				System.out.println("\t9. Monster-Waffe/R√ºstung DropChance: "+ itemChance + " % ");	
 				System.out.println("\n\tq. DebugMode verlassen! ");	
 				input = in.nextLine();
 				if (input.equals("1")){
@@ -127,16 +130,16 @@ public class MainApp {
 					System.out.println("\t LevelUp Grenze auf " + amount +" gesetzt. \n");
 				}
 				else if (input.equals("4")){
-					System.out.println("\n\t Wieviele HP sollen durch Heiltr‰nke wiederhergestellt werden?");
+					System.out.println("\n\t Wieviele HP sollen durch Heiltr√§nke wiederhergestellt werden?");
 					amount = in.nextInt();
 					player.setPotionHeal(amount);
 					System.out.println("\t Heiltrank-Rate auf " + amount +" gesetzt. \n");
 				}
 				else if (input.equals("5")){
-					System.out.println("\n\t Mit wievielen Heiltr‰nken soll gestartet werden?");
+					System.out.println("\n\t Mit wievielen Heiltr√§nken soll gestartet werden?");
 					amount = in.nextInt();
 					player.setNumPotions(amount);
-					System.out.println("\t Anzahl Start-Heiltr‰nke auf " + amount +" gesetzt. \n");
+					System.out.println("\t Anzahl Start-Heiltr√§nke auf " + amount +" gesetzt. \n");
 				}
 				else if (input.equals("6")){
 					System.out.println("\n\t Bis zu wieviel HP sollen Monster bekommen?");
@@ -154,7 +157,7 @@ public class MainApp {
 					System.out.println("\n\t Wie hoch soll die Chance in % auf einen Heiltrank sein?");
 					amount = in.nextInt();
 					potionChance = amount;
-					System.out.println("\t DropChance von Heiltr‰nken auf " + amount +" gesetzt. \n");
+					System.out.println("\t DropChance von Heiltr√§nken auf " + amount +" gesetzt. \n");
 				}
 				else if (input.equals("9")){
 					System.out.println("\n\t Wie hoch soll die Chance in % auf ein Item sein?");
@@ -166,7 +169,7 @@ public class MainApp {
 					break;
 				}
 				else {
-					System.out.println("\t Ung¸ltiger Befehl\n");
+					System.out.println("\t Ung√ºltiger Befehl\n");
 				}
 			}
 		}
@@ -178,17 +181,16 @@ public class MainApp {
 			GAME:
 			while(enemy.getEnemyAliveStatus()){
 				loading = false;
-				System.out.println("\t# Ein " + enemy.getEnemyName() + " taucht auf! #\n");
-				System.out.println("\t"+ player.getKlasse() + " " + player.getName() + "'s HP: " + player.getPlayerHealth() + "\tR¸stung: " + player.getArmorUp() + "\tMax. Damage: " + player.getAttackDamage());
+				System.out.println("\t"+ player.getKlasse() + " " + player.getName() + "'s HP: " + player.getPlayerHealth() + "\tR√ºstung: " + player.getArmorUp() + "\tMax. Damage: " + player.getAttackDamage());
 				System.out.println("\t" + enemy.getEnemyName() + " HP: "+ enemy.getEnemyHealth());
 				if (enemy.getEnemyName() == "Skelett"){
-					System.out.println("\tDas Skelett tr‰gt eine leichte R¸stung. ");
+					System.out.println("\tDas Skelett tr√§gt eine leichte R√ºstung. ");
 				}
 				else if (enemy.getEnemyName() == "Geist"){
-					System.out.println("\tDer Geist besitzt eine magische R¸stung. ");
+					System.out.println("\tDer Geist besitzt eine magische R√ºstung. ");
 				}
 				else if (enemy.getEnemyName() == "Minotaur"){
-					System.out.println("\tDer Minotaur tr‰gt eine schwere R¸stung. ");
+					System.out.println("\tDer Minotaur tr√§gt eine schwere R√ºstung. ");
 				}
 				
 				System.out.println("\n\tWas willst du tun?");
@@ -197,7 +199,7 @@ public class MainApp {
 				if (player.getKlasse() == "Dieb"){
 					System.out.println("\t3. Diebstahl");
 				}
-				System.out.println("\t4. Fl¸chten");
+				System.out.println("\t4. Fl√ºchten");
 				System.out.println("\t5. Speichern");
 				System.out.println("\t6. Laden");
 				input = in.nextLine();
@@ -214,21 +216,21 @@ public class MainApp {
 					int damageTaken = rand.nextInt(enemy.getEnemyAttackDamage());
 					int critHit = 10;
 					
-					//Schadensberechnung der einzelnen R¸stungstypen
+					//Schadensberechnung der einzelnen R√ºstungstypen
 					if (enemy.getEnemyName() == "Skelett" && player.getKlasse() == "Krieger"){
 						damageDealt = damageDealt * critDamage / 100 ;
-						System.out.println("\t> Deine Angriffe zeigen groﬂe Wirkung!");
+						System.out.println("\t> Deine Angriffe zeigen gro√üe Wirkung!");
 					}
 					else if (enemy.getEnemyName() == "Minotaur" && player.getKlasse() == "Dieb"){
 						damageDealt = damageDealt * critDamage / 100;
-						System.out.println("\t> Deine Angriffe zeigen groﬂe Wirkung!");
+						System.out.println("\t> Deine Angriffe zeigen gro√üe Wirkung!");
 						if(rand.nextInt(100) < critHit){
 							damageDealt = damageDealt * 2;
 						}	
 					}
 					else if (enemy.getEnemyName() == "Geist" && player.getKlasse() == "Alchimist"){
 						damageDealt = damageDealt * critDamage / 100;
-						System.out.println("\t> Deine Angriffe zeigen groﬂe Wirkung!");
+						System.out.println("\t> Deine Angriffe zeigen gro√üe Wirkung!");
 					}
 					else if (player.getKlasse() == "Dieb"){
 						if(rand.nextInt(100) < critHit){
@@ -246,11 +248,11 @@ public class MainApp {
 					player.takeDamage(damageAbsorb);
 					
 					//Combat Runde-Ausgabe
-					System.out.println("\t> " + player.getKlasse() + " " + player.getName()+ " trifft den "+ enemy.getEnemyName() + " f¸r " + damageDealt + " Schaden.");
-					System.out.println("\t> Du wurdest f¸r "+ damageAbsorb + " getroffen. \n");
+					System.out.println("\t> " + player.getKlasse() + " " + player.getName()+ " trifft den "+ enemy.getEnemyName() + " f√ºr " + damageDealt + " Schaden.");
+					System.out.println("\t> Du wurdest f√ºr "+ damageAbsorb + " getroffen. \n");
 					
 					if(player.getPlayerHealth() < 1){
-						System.out.println("\t>"+ enemy.getEnemyName() +" hat dich tˆdlich verwundet!");
+						System.out.println("\t>"+ enemy.getEnemyName() +" hat dich t√∂dlich verwundet!");
 						break;
 					}
 				}
@@ -266,17 +268,17 @@ public class MainApp {
 						  
 					//Abrechnung Heiltrank
 						player.potionHeal(player.getPotionHeal());
-						System.out.println("\t> Du trinkst einen deiner Heiltr‰nke, er heilt dich um " + player.getPotionHeal() + "."
+						System.out.println("\t> Du trinkst einen deiner Heiltr√§nke, er heilt dich um " + player.getPotionHeal() + "."
 								+ "\n\t> Du hast nun: "+player.getPlayerHealth()+" HP."
-								+ "\n\t> Du hast nun " +player.getNumPotions() +" Tr‰nke ¸brig.");
+								+ "\n\t> Du hast nun " +player.getNumPotions() +" Tr√§nke √ºbrig.");
 					}
 					else {
-						System.out.println("\t> Du hast keine Tr‰nke mehr!");
+						System.out.println("\t> Du hast keine Tr√§nke mehr!");
 					}
 					
 				}
 				
-				//Diebstahl nur f¸r Dieb
+				//Diebstahl nur f√ºr Dieb
 				else if(input.equals("3") && player.getKlasse() == "Dieb"){
 					
 			//Audio Ausgabe	Diebstahl
@@ -292,13 +294,13 @@ public class MainApp {
 						pickPocket = true;
 						player.increaseNumPotions(1);
 						System.out.println(" # Du hast " + enemy.getEnemyName() + " einen Heiltrank geklaut # ") ;
-						System.out.println(" # Du hast jetzt " + player.getNumPotions() + " Tr‰nke ¸brig.\n");
+						System.out.println(" # Du hast jetzt " + player.getNumPotions() + " Tr√§nke √ºbrig.\n");
 					}
 					else if(rand.nextInt(100) < itemChance) {
 						pickPocket = true;
 						player.increaseArmorUp(1);
 						System.out.println(" # Du hast " + enemy.getEnemyName() + " einen Talisman geklaut # ") ;
-						System.out.println(" # Du hast jetzt " + player.getArmorUp() + " R¸stungspunkte. #\n");
+						System.out.println(" # Du hast jetzt " + player.getArmorUp() + " R√ºstungspunkte. #\n");
 					}
 					if (!pickPocket){
 						int damageTaken = rand.nextInt(enemy.getEnemyAttackDamage());
@@ -314,10 +316,10 @@ public class MainApp {
 					}
 
 					
-				//Fl¸chten
+				//Fl√ºchten
 				}
 				else if(input.equals("4")){
-					System.out.println("\tDu l‰ufst davon.");
+					System.out.println("\tDu l√§ufst davon.");
 					break;
 				}
 				//Speichern
@@ -336,9 +338,9 @@ public class MainApp {
 					System.out.println("Spielstand geladen!\n");
 					continue GAME;
 				}
-				//Ung¸ltige Eingabe
+				//Ung√ºltige Eingabe
 				else{
-					System.out.println("Kein g¸ltiger Befehl");		
+					System.out.println("Kein g√ºltiger Befehl");		
 				}
 
 			}
@@ -364,18 +366,18 @@ public class MainApp {
 			}
 			else {
 				missingXp = player.getLevelUpPoints() - player.getExperience();
-				System.out.println(" # Du brauchst noch " + missingXp + " Erfahrungspunkte zum n‰chsten Aufstieg! # \n");
+				System.out.println(" # Du brauchst noch " + missingXp + " Erfahrungspunkte zum n√§chsten Aufstieg! # \n");
 			}
 		
 			//Berechnung ob ein Gegenstand fallengelassen wurde
 			if(rand.nextInt(100) < potionChance) {
 				player.increaseNumPotions(1);
 				System.out.println(" # " + enemy.getEnemyName() + " lies einen Heiltrank fallen # ") ;
-				System.out.println(" # Du hast jetzt " + player.getNumPotions() + " Tr‰nke ¸brig.\n");
+				System.out.println(" # Du hast jetzt " + player.getNumPotions() + " Tr√§nke √ºbrig.\n");
 			}
 			if(rand.nextInt(100) < itemChance) {
 				player.increaseArmorUp(1);
-				System.out.println(" # " + enemy.getEnemyName() + " lies einen magischen Talisman fallen. Du bist besser gesch¸tzt! # ") ;
+				System.out.println(" # " + enemy.getEnemyName() + " lies einen magischen Talisman fallen. Du bist besser gesch√ºtzt! # ") ;
 				System.out.println(" # Du hast jetzt " + player.getArmorUp() + " Schutzpunkte.\n");
 			}
 			if(rand.nextInt(100) < itemChance) {
@@ -386,28 +388,29 @@ public class MainApp {
 			}
 			if(rand.nextInt(100) < itemChance) {
 				player.increaseArmorUp(5);
-				System.out.println(" # " + enemy.getEnemyName() + " lies eine bessere R¸stung fallen. Du h‰lst nun mehr aus! # ") ;
+				System.out.println(" # " + enemy.getEnemyName() + " lies eine bessere R√ºstung fallen. Du h√§lst nun mehr aus! # ") ;
 				System.out.println(" # Du reduzierst den Schaden des Gegners nun um "+ player.getArmorUp()+" Punkte! \n");
 			}
 		}
 			
-			//N‰chste Kampfphase
+			//N√§chste Kampfphase
 			System.out.println(" # Du hast noch " + player.getPlayerHealth() + " HP. # ");
 			System.out.println("--------------------------------------------------");
 			System.out.println("Was willst du tun?");
-			System.out.println("1. Weiter k‰mpfen!");
+			System.out.println("1. Weiter k√§mpfen!");
 			System.out.println("2. Den Dungeon verlassen");
 			System.out.println("3. Speichern und weiter");
 			System.out.println("4. Spielstand laden");
 			input = in.nextLine();
 			
 			while(!input.equals("1") && !input.equals("2") && !input.equals("3")&& !input.equals("4")){
-				System.out.println("Ung¸ltiger Befehl");
+				System.out.println("Ung√ºltiger Befehl");
 				input = in.nextLine();
 			}
 			if(input.equals("1")) {
 				System.out.println("Du begibst dich tiefer in das Dungeon");
 				enemy.spawnEnemy(1);
+				System.out.println("\t\n# Ein " + enemy.getEnemyName() + " taucht auf! #\n");
 			}
 			else if(input.equals("2")) {
 				System.out.println("Du gehst in den wohlverdienten Ruhestand!");
@@ -415,12 +418,12 @@ public class MainApp {
 				break;
 			}
 			else if(input.equals("3")) {
-				enemy.spawnEnemy(1);
 				player.savePlayer("E:/Uni/info 2/DungeonGrind/src/PlayerSave.txt");
 				player.saveUser("E:/Uni/info 2/DungeonGrind/src/UserSave.txt");
 				enemy.saveEnemy("E:/Uni/info 2/DungeonGrind/src/EnemySave.txt");
 				enemy.saveEnemyStatus("E:/Uni/info 2/DungeonGrind/src/EnemyAliveSave.txt");
 				System.out.println("Spielstand gespeichert!\n");
+				System.out.println("\t\n# Ein " + enemy.getEnemyName() + " taucht auf! #\n");
 			}
 			else if(input.equals("4")) {
 				player.readPlayer("E:/Uni/info 2/DungeonGrind/src/PlayerSave.txt");
@@ -431,6 +434,7 @@ public class MainApp {
 				loading = true;
 			}
 		}
+		
 		
 		}
 	}
