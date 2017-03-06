@@ -1,5 +1,4 @@
 import java.util.*;
-
 import java.io.*;
 import sun.audio.*;
 
@@ -9,24 +8,23 @@ public class MainApp {
 		
 	
 		//System Variablen&Objekte
+		Player player = new Player();
+		Enemy enemy = new Enemy();
 		Scanner in = new Scanner(System.in);
 		Random rand = new Random();
 		boolean run = true;
 		boolean debugMode = true;
 		boolean menu = true;
-		boolean combatMenu = true;
-		Player player = new Player();
-		Enemy enemy = new Enemy();
 		String input;
 		int amount;
 		boolean loading = false;
-		String playerPath = "E:/Uni/info 2/DungeonGrind/src/PlayerSave.txt";
-		String userPath = "E:/Uni/info 2/DungeonGrind/src/UserSave.txt";
-		String enemyPath = "E:/Uni/info 2/DungeonGrind/src/EnemySave.txt";
-		String enemyStatusPath = "E:/Uni/info 2/DungeonGrind/src/EnemyAliveSave.txt";
-		String punshPath = "E:/Uni/info 2/DungeonGrind/src/Punsh.wav";
-		String magicPath = "E:/Uni/info 2/DungeonGrind/src/Magic.wav";
-		String pickPocketPath = "E:/Uni/info 2/DungeonGrind/src/Pickpocket.wav";
+		String playerPath = "C:/Users/Domsche/workspace/DungeonGrind/src/PlayerSave.txt";
+		String userPath = "C:/Users/Domsche/workspace/DungeonGrind/src/UserSave.txt";
+		String enemyPath = "C:/Users/Domsche/workspace/DungeonGrind/src/EnemySave.txt";
+		String enemyStatusPath = "C:/Users/Domsche/workspace/DungeonGrind/src/EnemyAliveSave.txt";
+		String punshPath = "C:/Users/Domsche/workspace/DungeonGrind/src/Punsh.wav";
+		String magicPath = "C:/Users/Domsche/workspace/DungeonGrind/src/Magic.wav";
+		String pickPocketPath = "C:/Users/Domsche/workspace/DungeonGrind/src/Pickpocket.wav";
 		
 		//Game Statistiken
 		int missingXp = 0;
@@ -46,8 +44,9 @@ public class MainApp {
 	while(menu){			
 		System.out.println("Willkommen zu DungeonGrind!");
 		System.out.println("\n\t1. Neues Spiel");
-		System.out.println("\n\t2. Spiel Laden");
-		System.out.println("\n\td. DebugMode");
+		System.out.println("\t2. Spiel Laden");
+		System.out.println("\t3. Spiel Infos");
+		System.out.println("\td. DebugMode");
 		input = in.nextLine();
 		//Neues Spiel starten
 		if(input.equals("1")){
@@ -99,6 +98,17 @@ public class MainApp {
 			loading = true;
 			break;
 			
+		}
+		else if(input.equals("3")){
+			System.out.println("\t\nItems: ");
+			System.out.println("Rüstungsupgrade - Erhöht deine Rüstung");
+			System.out.println("Waffenupgrade - Erhöht deinen maximalen Schaden");
+			System.out.println("Talisman - Jeder Talisman erhöhrt deine Rüstung um 1");
+			System.out.println("Heiltrank - Heilt deine HP");
+			System.out.println("\t\nMonsterRüstungen:");
+			System.out.println("Schwere Rüstung - Anfällig gegen Schurken");
+			System.out.println("Leichte Rüstung - Anfällig gegen Krieger");
+			System.out.println("Magische Rüstung - Anfällig gegen Alchimist");
 		}
 		//Debug Mode
 		else if (input.equals("d")){
@@ -232,6 +242,7 @@ public class MainApp {
 						System.out.println("\t> Deine Angriffe zeigen große Wirkung!");
 						if(rand.nextInt(100) < critHit){
 							damageDealt = damageDealt * 2;
+							System.out.println("\t> Das war ein kritischer Treffer!");
 						}	
 					}
 					else if (enemy.getEnemyName() == "Geist" && player.getKlasse() == "Alchimist"){
@@ -271,7 +282,7 @@ public class MainApp {
 					    AudioStream audioStream = new AudioStream(stream);
 					    AudioPlayer.player.start(audioStream);
 						  
-					//Abrechnung Heiltrank
+					    //Abrechnung Heiltrank
 						player.potionHeal(player.getPotionHeal());
 						System.out.println("\t> Du trinkst einen deiner Heiltränke, er heilt dich um " + player.getPotionHeal() + "."
 								+ "\n\t> Du hast nun: "+player.getPlayerHealth()+" HP."
@@ -286,7 +297,7 @@ public class MainApp {
 				//Diebstahl nur für Dieb
 				else if(input.equals("3") && player.getKlasse() == "Dieb"){
 					
-			//Audio Ausgabe	Diebstahl
+					//Audio Ausgabe	Diebstahl
 					
 			    	InputStream stream = new FileInputStream(pickPocketPath);
 				    AudioStream audioStream = new AudioStream(stream);    
@@ -407,20 +418,24 @@ public class MainApp {
 			System.out.println("4. Spielstand laden");
 			input = in.nextLine();
 			
+			//Abfangen von ungültigen Eingaben
 			while(!input.equals("1") && !input.equals("2") && !input.equals("3")&& !input.equals("4")){
 				System.out.println("Ungültiger Befehl");
 				input = in.nextLine();
 			}
+			//Weiter spielen
 			if(input.equals("1")) {
 				System.out.println("Du begibst dich tiefer in das Dungeon");
 				enemy.spawnEnemy(1);
 				System.out.println("\t\n# Ein " + enemy.getEnemyName() + " taucht auf! #\n");
 			}
+			//Punkte sichern
 			else if(input.equals("2")) {
 				System.out.println("Du gehst in den wohlverdienten Ruhestand!");
 				System.out.println("Dein Punktestand betrug: " + player.getScore() + " !");
 				break;
 			}
+			//Speichern
 			else if(input.equals("3")) {
 				player.savePlayer(playerPath);
 				player.saveUser(userPath);
@@ -430,6 +445,7 @@ public class MainApp {
 				enemy.spawnEnemy(1);
 				System.out.println("\t\n# Ein " + enemy.getEnemyName() + " taucht auf! #\n");
 			}
+			//Laden
 			else if(input.equals("4")) {
 				player.readPlayer(playerPath);
 				player.readUser(userPath);
